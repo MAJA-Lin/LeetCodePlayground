@@ -1,6 +1,6 @@
 <?php
 
-class Hamming_Distance
+class HammingDistance
 {
     public function hammingDistance(int $x, int $y)
     {
