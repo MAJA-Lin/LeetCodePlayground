@@ -4,24 +4,24 @@ class HammingDistance
 {
     public function hammingDistance(int $x, int $y)
     {
-        $decimalX = decbin($x);
-        $decimalY = decbin($y);
+        $binaryX = decbin($x);
+        $binaryY = decbin($y);
 
         # Make sure the length are equal
-        $lengthCompareResult = strlen($decimalX) <=> strlen($decimalY);
+        $lengthCompareResult = strlen($binaryX) <=> strlen($binaryY);
         if ($lengthCompareResult >1) {
-            $decimalY = str_pad($decimalY, strlen($decimalX), '0', STR_PAD_LEFT);
+            $binaryY = str_pad($binaryY, strlen($binaryX), '0', STR_PAD_LEFT);
         } elseif ($lengthCompareResult < 1) {
-            $decimalX = str_pad($decimalX, strlen($decimalY), '0', STR_PAD_LEFT);
+            $binaryX = str_pad($binaryX, strlen($binaryY), '0', STR_PAD_LEFT);
         }
 
-        echo($decimalX);
+        echo($binaryX);
         echo "\n";
-        echo($decimalY);
+        echo($binaryY);
 
         $result = 0;
-        for ($i = 0; $i < strlen($decimalX); $i++) {
-            if ($decimalX[$i] !== $decimalY[$i]) {
+        for ($i = 0; $i < strlen($binaryX); $i++) {
+            if ($binaryX[$i] !== $binaryY[$i]) {
                 $result++;
             }
         }
