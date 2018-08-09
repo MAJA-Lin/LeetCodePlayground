@@ -8,9 +8,10 @@ class HammingDistance
         $decimalY = decbin($y);
 
         # Make sure the length are equal
-        if (strlen($decimalX) > strlen($decimalY)) {
+        $lengthCompareResult = strlen($decimalX) <=> strlen($decimalY);
+        if ($lengthCompareResult >1) {
             $decimalY = str_pad($decimalY, strlen($decimalX), '0', STR_PAD_LEFT);
-        } elseif (strlen($decimalX) < strlen($decimalY)) {
+        } elseif ($lengthCompareResult < 1) {
             $decimalX = str_pad($decimalX, strlen($decimalY), '0', STR_PAD_LEFT);
         }
 
