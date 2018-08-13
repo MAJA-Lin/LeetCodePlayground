@@ -5,32 +5,18 @@
  */
 var hammingDistance = function (x, y) {
     let result = 0;
-    let binaryX = dec2bin(x);
-    let binaryY = dec2bin(y);
+    let xorResult = x ^ y;
 
-    if (binaryX.length > binaryY.length) {
-        binaryY = binaryY.padStart(binaryX.length, 0);
+    let dec2bin = function (dec) {
+        return (dec >>> 0).toString(2);
     }
 
-    if (binaryX.length < binaryY.length) {
-        binaryX = binaryX.padStart(binaryY.length, 0);
-    }
+    let binaryXorResult = dec2bin(xorResult);
 
-    for (let i = 0; i < binaryX.length; i++) {
-        if (binaryX.charAt(i) !== binaryY.charAt(i)) {
+    for (let i = 0; i < binaryXorResult.length; i++) {
+        if (binaryXorResult.charAt(i) == 1) {
             result++;
         }
     }
-
-    console.log(binaryY);
-    console.log(binaryX);
-
     return result;
 };
-
-/**
- * @param {number} dec
- */
-var dec2bin = function(dec) {
-    return (dec >>> 0).toString(2);
-}
