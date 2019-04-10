@@ -19,4 +19,30 @@ class Solution
 
         return -1;
     }
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer
+     */
+    function pivotIndexOpimization($nums)
+    {
+        // totalSum = leftSum + rightSum + pivotVulue
+        // -pivotValue = -totalSum + leftSum + rightSum
+        // pivotValue = totalSum - leftSum - rightSum
+        // When we get pivotValue, leftSum will equal to rightSum
+        // pivotValue = totalSum - (2 * halfPartOfSum)
+
+        $totalSum = array_sum($nums);
+        $tempSum = 0;
+
+        for ($i=0; $i < sizeof($nums); $i++) {
+            if ($nums[$i] == $totalSum - 2 * $tempSum) {
+                return $i;
+            }
+
+            $tempSum = $tempSum + $nums[$i];
+        }
+
+        return -1;
+    }
 }
