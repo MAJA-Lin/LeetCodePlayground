@@ -49,8 +49,9 @@ var solution = function(isBadVersion) {
         let right = n;
         let index = 0;
 
-        while (1) {
-            index = Math.ceil((left + right) / 2);
+        while (left < right) {
+            // left + ((right - left) / 2) => can avoid overflow problem
+            index = Math.ceil(left + ((right - left) / 2));
             // console.log("Index", index)
             // console.log("L:", left, "R: ", right)
 
