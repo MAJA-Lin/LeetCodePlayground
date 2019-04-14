@@ -22,28 +22,37 @@ class Solution
         $minN = 0;
 
         while ($minM <= $m && $minN <= $n) {
-            // Traverse row: (0, 0) -> (0, 4)
+            // Traverse: (0,0) -> (0,4)
             for ($i = $minN; $i <= $n; $i++) {
                 $result[] = $matrix[$minM][$i];
             }
+            // (0,x) has been consumed
             $minM++;
 
+            // Traverse: (1,4) -> (4,4)
             for ($i = $minM; $i <= $m; $i++) {
                 $result[] = $matrix[$i][$n];
             }
+            // (x,4) has been consumed
             $n--;
 
+            // Traverse: (4,3) -> (4,0)
             if ($minM <= $m) {
                 for ($i = $n; $i >= $minN; $i--) {
                     $result[] = $matrix[$m][$i];
                 }
+
+                // (4,x) has been consumed
                 $m--;
             }
 
+            // Traverse: (3,0) -> (1,0)
             if ($minN <= $n) {
                 for ($i = $m; $i >= $minM; $i--) {
                     $result[] = $matrix[$i][$minN];
                 }
+
+                // (x,0) has been consumed
                 $minN++;
             }
         }
