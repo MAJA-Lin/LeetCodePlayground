@@ -6,9 +6,9 @@ int strStr(char* haystack, char* needle) {
     int lengthH = strlen(haystack);
     int lengthN = strlen(needle);
 
-    for (int i = 0; i < lengthH; i++) {
+    for (int i = 0; i <= (lengthH - lengthN); i++) {
         bool skip = false;
-        if (haystack[i] == needle[0] && (lengthH - i) >= lengthN) {
+        if (haystack[i] == needle[0]) {
             for(int j = 1; j < lengthN; j++) {
                 // printf("haystack: %c; needle: %c\n", haystack[i+j], needle[j]);
                 // printf("Same: %d\n", (haystack[i + j] != needle[j]));
