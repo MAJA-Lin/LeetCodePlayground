@@ -11,15 +11,7 @@ class Solution
         $length = sizeof($nums);
         $sum = 0;
 
-        for ($i = 0; $i < $length; $i++) {
-            for ($j = $i + 1; $j < $length; $j++) {
-                if ($nums[$i] > $nums[$j]) {
-                    $tmp = $nums[$i];
-                    $nums[$i] = $nums[$j];
-                    $nums[$j] = $tmp;
-                }
-            }
-        }
+        sort($nums);
 
         for ($i = 0; $i < $length / 2; $i++) {
             $sum = $sum + $nums[2 * $i];
