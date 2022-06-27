@@ -21,3 +21,16 @@ func twoSum(nums []int, target int) []int {
 
 	return []int{0, 1}
 }
+
+func twoSumRefined(nums []int, target int) []int {
+	searchedMap := map[int]int{}
+	for key, value := range nums {
+		if index, isPresent := searchedMap[target-value]; isPresent {
+			return []int{index, key}
+		} else {
+			searchedMap[value] = key
+		}
+	}
+
+	return []int{0, 1}
+}
