@@ -3,38 +3,84 @@ package main
 import "fmt"
 
 func main() {
-	input := "au"
+	input := "abcdafgpo"
 
 	fmt.Println(lengthOfLongestSubstring(input))
 }
 
-func lengthOfLongestSubstring(s string) int {
-	result := map[rune]int{}
-	lookMap := map[rune]int{}
+// max returns the max of num1 and num2
+func max(num1 int, num2 int) int {
+	if num1 > num2 {
+		return num1
+	}
+	return num2
+}
 
-	for pos, char := range s {
-		// Initialize result with first element
-		if len(result) <= 0 {
-			lookMap[char] = pos
-			result = lookMap
-		}
+func lengthOfLongestSubstringInBrutal(s string) int {
+	length := len(s)
+	result := 0
 
-		if _, isPresent := lookMap[char]; !isPresent {
-			lookMap[char] = pos
-		} else {
-			// Empty the temp map and reassign elements
-			lookMap = map[rune]int{}
-			lookMap[char] = pos
-		}
-
-		if len(result) <= len(lookMap) {
-			result = lookMap
-		}
-
-		// fmt.Println("Result is: ", result)
-		// fmt.Println("Tmp is: ", lookMap)
+	if length <= 1 {
+		return length
 	}
 
-	// fmt.Println(result)
-	return len(result)
+	for left := 0; left < length-1; left++ {
+		for right := 0; right < length; right++ {
+			charMap := map[uint8]bool{}
+			isUnique := true
+
+			for i := left; i <= right; i++ {
+				if _, isPresent := charMap[s[i]]; !isPresent {
+					charMap[s[i]] = true
+					continue
+				}
+
+				isUnique = false
+				break
+			}
+
+			if isUnique {
+				result = max(result, right-left+1)
+			}
+		}
+
+	}
+
+	return result
+}
+
+func lengthOfLongestSubstring(s string) int {
+	length := len(s)
+	result := 0
+	// substrMap := map[rune]int{}
+	// left := 0
+	// right := 0
+
+	if length <= 1 {
+		return length
+	}
+
+	for left := 0; left < length-1; left++ {
+		for right := 0; right < length; right++ {
+			charMap := map[uint8]bool{}
+			isUnique := true
+
+			for i := left; i <= right; i++ {
+				if _, isPresent := charMap[s[i]]; !isPresent {
+					charMap[s[i]] = true
+					continue
+				}
+
+				isUnique = false
+				break
+			}
+
+			if isUnique {
+				result = max(result, right-left+1)
+			}
+		}
+
+	}
+
+	return result
 }
