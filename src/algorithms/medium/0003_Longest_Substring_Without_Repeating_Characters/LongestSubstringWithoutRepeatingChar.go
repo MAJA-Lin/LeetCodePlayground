@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	input := "abcdafgpo"
+	input := "avdaef"
 
 	fmt.Println(lengthOfLongestSubstring(input))
 }
@@ -49,38 +49,34 @@ func lengthOfLongestSubstringInBrutal(s string) int {
 	return result
 }
 
+/**
+ * Explanation: https://www.code-recipe.com/post/longest-substring-without-repeating-characters
+ */
 func lengthOfLongestSubstring(s string) int {
 	length := len(s)
 	result := 0
-	// substrMap := map[rune]int{}
-	// left := 0
-	// right := 0
+	// k:v => character and index in the input
+	substringMap := map[uint8]int{}
+	left := 0
 
-	if length <= 1 {
-		return length
-	}
+	for right := 0; right < length; right++ {
+		duplicatedIndex, isDuplicated := substringMap[s[right]]
 
-	for left := 0; left < length-1; left++ {
-		for right := 0; right < length; right++ {
-			charMap := map[uint8]bool{}
-			isUnique := true
+		if isDuplicated {
+			// Update result without duplicated char
+			result = max(result, right-left)
 
-			for i := left; i <= right; i++ {
-				if _, isPresent := charMap[s[i]]; !isPresent {
-					charMap[s[i]] = true
-					continue
-				}
-
-				isUnique = false
-				break
+			// Remove all elements before the duplicated index
+			for i := left; i < duplicatedIndex; i++ {
+				delete(substringMap, s[i])
 			}
 
-			if isUnique {
-				result = max(result, right-left+1)
-			}
+			left = duplicatedIndex + 1
 		}
-
+		// Add char-index map into processing map
+		substringMap[s[right]] = right
 	}
 
+	result = max(result, length-left)
 	return result
 }
