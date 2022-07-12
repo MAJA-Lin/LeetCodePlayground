@@ -13,7 +13,7 @@ func main() {
 
 func maxSubArrayInBrutal(nums []int) int {
 	length := len(nums)
-	// minimum of int64
+	// minimum of int64; might be affected by platform
 	result := -1 << (64 - 1)
 
 	for i := 0; i < length; i++ {
@@ -32,7 +32,29 @@ func maxSubArrayInBrutal(nums []int) int {
 	return result
 }
 
-func max(num1 int, num2 int) int {
+/**
+ * Use this light solution
+ * https://leetcode.com/problems/maximum-subarray/discuss/20210/O(n)-Java-solution
+ */
+func maxSubArray(nums []int) int {
+	sum := nums[0]
+	max := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if sum < 0 {
+			sum = nums[i]
+		} else {
+			sum += nums[i]
+		}
+
+		if sum > max {
+			max = sum
+		}
+	}
+
+	return max
+}
+
+func getMax(num1 int, num2 int) int {
 	if num1 > num2 {
 		return num1
 	}
