@@ -15,10 +15,10 @@ func isValid(s string) bool {
 		']': '[',
 	}
 
-	length := len(s)
-	if length%2 != 0 {
-		return false
-	}
+	// length := len(s)
+	// if length%2 != 0 {
+	// 	return false
+	// }
 
 	// Init stack with EOL capacity
 	stack := make([]rune, 0, 1)
