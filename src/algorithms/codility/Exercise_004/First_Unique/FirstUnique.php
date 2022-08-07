@@ -8,26 +8,23 @@
 
 function solution($A) {
     $hash = [];
-    $unique = [];
     foreach ($A as $element) {
         // Prevent number as index error
         $index = (string) $element;
         if (isset($hash[$index])) {
             $hash[$index]++;
-
-            if (($key = array_search($element, $unique)) !== false) {
-                unset($unique[$key]);
-            }
         } else {
             $hash[$index] = 1;
-            $unique[] = $element;
         }
     }
 
-    if (empty($unique)) {
-        return -1;
+    foreach ($A as $element) {
+        $index = (string) $element;
+        if ($hash[$index] == 1) {
+            return $element;
+        }
     }
 
-    return reset($unique);
+    return -1;
 }
 
