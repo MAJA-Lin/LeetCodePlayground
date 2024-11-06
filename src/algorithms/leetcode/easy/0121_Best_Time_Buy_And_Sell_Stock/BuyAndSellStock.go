@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"math"
+)
+
 func main() {
 	testCaseAlpha := []int{7, 1, 5, 3, 6, 4}
 
@@ -22,6 +27,8 @@ func brutalMaxProfit(prices []int) int {
 }
 
 /**
+ * Comparing with index
+ *
  * Dynamic programming solution
  * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/discuss/1735550/Python-Javascript-Easy-solution-with-very-clear-Explanation
  */
@@ -42,4 +49,25 @@ func dpMaxProfit(prices []int) int {
 	}
 
 	return max
+}
+
+// Comparing with value only, not index.
+//
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/1735493/java-c-best-ever-explanation-could-possible
+func maxProfitByValue(prices []int) int {
+	buy := math.MaxInt
+	todayProfit := 0
+	maxProfit := 0
+
+	for i := 0; i < len(prices); i++ {
+		fmt.Println("------- Day :", i, "-------")
+		fmt.Printf("Previous buy (lowest): %v, current price: %v\n", buy, prices[i])
+		buy = min(buy, prices[i])
+		todayProfit = prices[i] - buy
+
+		fmt.Printf("Today's profit : %v, overall profit: %v\n", todayProfit, maxProfit)
+		maxProfit = max(maxProfit, todayProfit)
+	}
+
+	return maxProfit
 }
